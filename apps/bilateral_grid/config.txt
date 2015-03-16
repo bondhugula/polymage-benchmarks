@@ -1,0 +1,8 @@
+Config     : #61
+Tile Sizes : [8, 128]
+Group Size : 2
+
+Time taken
+on target  : 7.039 ms
+Size       : 1536 x 2560
+Cores      : 16

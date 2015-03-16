@@ -1,0 +1,8 @@
+Config     : #205
+Tile Sizes : [32, 256]
+Group Size : 6
+
+Time taken
+on target  : 15.859 ms
+Size       : 6400 x 6400
+Cores      : 16
