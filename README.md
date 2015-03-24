@@ -22,7 +22,7 @@ How to run the benchmarks
 All seven benchmarks are in the apps/ dir. For any of the benchmarks, say 
 camera_pipe/,
 
-camera_pipe.so refers to the fully optimized Polymage code.  
+camera_pipe_opt.so refers to the fully optimized Polymage code.  
 camera_pipe_naive.so refers to the base code (naive C code parallelized and 
 vectorized) and corresponds to PolyMage (base+vec) from the paper.
 
