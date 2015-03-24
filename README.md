@@ -5,9 +5,9 @@ PolyMage Benchmarks
 Requirements
 ============
 
-1) Python 2.7 or higher
+1) Python 2
 
-2) OpenCV 2.4.8 or higher (with QT/GTK support, video codec support for the 
+2) OpenCV 2.4.7 or higher (with QT/GTK support, video codec support for the 
 video demo), Python bindings for OpenCV. On a Fedora Linux system, these can 
 be installed with 
 
