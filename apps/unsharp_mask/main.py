@@ -38,7 +38,7 @@ from utils import clock, initOptionals, \
                    printLine, image_clamp
 
 # shared library, and function
-libunsharp = ctypes.cdll.LoadLibrary("./unsharp.so")
+libunsharp = ctypes.cdll.LoadLibrary("./unsharp_mask.so")
 unsharp = libunsharp.pipeline_mask
 
 # initialize the app. parameters

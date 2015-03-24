@@ -37,7 +37,7 @@ from utils import clock, initOptionals, \
                    printLine, image_clamp
 
 # shared library, and function
-libblending = ctypes.cdll.LoadLibrary("./blending.so")
+libblending = ctypes.cdll.LoadLibrary("./pyramid_blending.so")
 blending = libblending.pipeline_blend
 
 # initialize the app. parameters

@@ -1,27 +1,13 @@
-CXX=icpc
-CXX_FLAGS=-openmp -ipo -O3 -xhost -fPIC -shared
+APP=interpolate
 
-#CXX=g++
-#CXX_FLAGS=-fopenmp -O3 -fPIC -shared
+include ../common.mk
 
-all: interpolate graph
-
-naive: interpolate_naive
-
-interpolate: interpolate.so
+$(APP): $(APP)_opt.so
+	rm -f $(APP).so
+	ln -s $< $(APP).so
 	python main.py ../../images/rgb.png ../../images/alpha.png 11
 
-interpolate_naive: interpolate_naive.so
+$(APP)_naive: $(APP)_naive.so
+	rm -f $(APP).so
+	ln -s $< $(APP).so
 	python main.py ../../images/rgb.png ../../images/alpha.png 11
-
-interpolate.so: interpolate_polymage.cpp
-	$(CXX) $(CXX_FLAGS) interpolate_polymage.cpp -o interpolate.so
-
-interpolate_naive.so: interpolate_polymage_naive.cpp
-	$(CXX) $(CXX_FLAGS) interpolate_polymage_naive.cpp -o interpolate.so
-
-graph:
-	dot -Tpng graph.dot >graph.png
-
-clean:
-	rm -f *.pyc *.so graph.png

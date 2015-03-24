@@ -1,27 +1,13 @@
-CXX=icpc
-CXX_FLAGS=-openmp -ipo -O3 -xhost -fPIC -shared
+APP=bilateral_grid
 
-#CXX=g++
-#CXX_FLAGS=-fopenmp -O3 -fPIC -shared
+include ../common.mk
 
-all: bilateral_grid graph
-
-naive: bilateral_grid_naive
-
-bilateral_grid: bilateral.so
+$(APP): $(APP)_opt.so
+	rm -f $(APP).so
+	ln -s $< $(APP).so
 	python main.py ../../images/rgb.png 11
 
-bilateral_grid_naive: bilateral_naive.so
+$(APP)_naive: $(APP)_naive.so
+	rm -f $(APP).so
+	ln -s $< $(APP).so
 	python main.py ../../images/rgb.png 11
-
-bilateral.so: bilateral_grid_polymage.cpp
-	$(CXX) $(CXX_FLAGS) bilateral_grid_polymage.cpp -o bilateral.so
-
-bilateral_naive.so: bilateral_grid_polymage_naive.cpp
-	$(CXX) $(CXX_FLAGS) bilateral_grid_polymage_naive.cpp -o bilateral.so
-
-graph:
-	dot -Tpng graph.dot >graph.png
-
-clean:
-	rm -f *.pyc *.so graph.png

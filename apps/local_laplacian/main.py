@@ -38,7 +38,7 @@ from utils import clock, initOptionals, \
                    printLine, image_clamp
 
 # shared library, and function
-libll = ctypes.cdll.LoadLibrary("./laplacian.so")
+libll = ctypes.cdll.LoadLibrary("./local_laplacian.so")
 laplacian = libll.pipeline_laplacian
 
 # initialize the app. parameters

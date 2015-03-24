@@ -37,7 +37,7 @@ from utils import clock, initOptionals, \
                    printLine, image_clamp
 
 # shared library, and function
-libbilateral = ctypes.cdll.LoadLibrary("./bilateral.so")
+libbilateral = ctypes.cdll.LoadLibrary("./bilateral_grid.so")
 bilateral_grid = libbilateral.pipeline_filtered
 
 # initialize the app. parameters

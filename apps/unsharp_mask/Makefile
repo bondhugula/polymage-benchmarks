@@ -1,27 +1,14 @@
-CXX=icpc
-CXX_FLAGS=-openmp -ipo -O3 -xhost -fPIC -shared
+APP=unsharp_mask
 
-#CXX=g++
-#CXX_FLAGS=-fopenmp -O3 -fPIC -shared
+include ../common.mk
 
-all: unsharp_mask graph
-
-naive: unsharp_mask_naive
-
-unsharp_mask: unsharp.so
+$(APP): $(APP)_opt.so
+	rm -f $(APP).so
+	ln -s $< $(APP).so
 	python main.py ../../images/grand_canyon2.jpg 0.001 3 11 2048 2048
 
-unsharp_mask_naive: unsharp_naive.so
+$(APP)_naive: $(APP)_naive.so
+	rm -f $(APP).so
+	ln -s $< $(APP).so
 	python main.py ../../images/grand_canyon2.jpg 0.001 3 11 2048 2048
 
-unsharp.so: unsharp_mask_polymage.cpp
-	$(CXX) $(CXX_FLAGS) unsharp_mask_polymage.cpp -o unsharp.so
-
-unsharp_naive.so: unsharp_mask_polymage_naive.cpp
-	$(CXX) $(CXX_FLAGS) unsharp_mask_polymage_naive.cpp -o unsharp.so
-
-graph:
-	dot -Tpng graph.dot >graph.png
-
-clean:
-	rm -f *.pyc *.so graph.png
