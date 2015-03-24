@@ -5,19 +5,22 @@ PolyMage Benchmarks
 Requirements
 ============
 
-python 2.7
+1) Python 2
 
-OpenCV 2.4.8 (with QT or gtk support, with video codec support for the video demo)
+2) OpenCV 2.4.7 or higher (with QT/GTK support, video codec support for the 
+video demo), Python bindings for OpenCV. On a Fedora Linux system, these can 
+be installed with 
 
-OpenCV python bindings
+$ sudo yum -y install opencv python-opencv
 
-g++ (GNU C++ compiler) > 4.8 or icpc (Intel C/C++ compiler) > 12.0
+3) g++ (GNU C++ compiler) version 4.8 or higher or Intel C/C++ compiler (icpc) 
+12.0 or higher (recommended: icpc 14.0 or higher)
 
 How to run the benchmarks
 =========================
 
 All seven benchmarks are in the apps/ dir. For any of the benchmarks, say 
-camera_pipe/
+camera_pipe/,
 
 camera_pipe.so refers to the fully optimized Polymage code.  
 camera_pipe_naive.so refers to the base code (naive C code parallelized and 
