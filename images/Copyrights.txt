@@ -1,0 +1,5 @@
+alpha.png - https://github.com/halide/Halide/tree/master/apps/images
+bayer_raw.png - https://github.com/halide/Halide/tree/master/apps/images
+grand_canyon1.jpg - (c) Reuben Francis Cornel, CC By A-SA 2.0
+grand_canyon2.jpg - (c) Reuben Francis Cornel, CC By A-SA 2.0 (modified)
+rgb.png - https://github.com/halide/Halide/tree/master/apps/images
