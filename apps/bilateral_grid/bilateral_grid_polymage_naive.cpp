@@ -65,6 +65,7 @@ extern "C" void  pipeline_filtered(int  C, int  R, void * input_void_arg, void *
       }
     }
   }
+  #pragma omp parallel for schedule(static)
   for (int  _i0 = 1; (_i0 <= 325); _i0 = (_i0 + 1))
   {
     for (int  _i1 = 1; (_i1 <= 197); _i1 = (_i1 + 1))
