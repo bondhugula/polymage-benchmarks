@@ -102,6 +102,8 @@ def interpolate():
         downx.definition = impipe.Case(condxBottom, 0)
         downx.definition = impipe.Case(condxTop, 0)
     
+        # Please refer to 'local_laplacian' app to check how to set
+        # boundary conditions if necessary
 
         # downsample in 'y' dimension (using [1 2 1] filter)
 

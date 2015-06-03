@@ -103,6 +103,9 @@ def pyramid_blending():
                                                   ) * 0.0625)
         #fi
 
+        # Please refer to 'local_laplacian' app to check how to set
+        # boundary conditions if necessary
+
         # downsample in 'y' dimension (using [1 4 6 4 1] filter)
 
         condy = impipe.Condition(x, '>=', 2) & \
