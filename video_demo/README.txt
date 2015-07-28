@@ -21,6 +21,7 @@ Options in the demo
 h - to switch to harris mode
 b - to switch to bilateral mode
 u - to switch to unsharp mode
+l - to switch to local laplacian mode
 
 space - to toggle OpenCV/PolyMage mode
         (only 'harris' for now)
