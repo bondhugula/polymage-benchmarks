@@ -6,8 +6,8 @@ CXX_FLAGS=-openmp -ipo -O3 -xhost -fPIC -shared
 
 all: $(APP) graph
 
-polymage: $(APP)_opt.so
-naive: $(APP)_naive.so
+polymage: $(APP)
+naive: $(APP)_naive
 
 $(APP)_opt.so: $(APP)_polymage.cpp
 	$(CXX) $(CXX_FLAGS) $< -o $@
