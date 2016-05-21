@@ -61,6 +61,10 @@ liblaplacian.pool_init()
 libbilateral_naive.pool_init()
 libbilateral.pool_init()
 
+# Thickness setting has been moved from openCV to openCV 2.
+# So, just use the raw value for CV_FILLED = -1
+CV_THICKNESS_FILLED = -1
+
 while(cap.isOpened()):
     ret, frame = cap.read()
 
@@ -139,7 +143,7 @@ while(cap.isOpened()):
 
     frameEnd = clock()
 
-    cv2.rectangle(res, (0, 0), (750, 150), (255, 255, 255), thickness=cv2.cv.CV_FILLED)
+    cv2.rectangle(res, (0, 0), (750, 150), (255, 255, 255), thickness=CV_THICKNESS_FILLED)
 
     draw_str(res, (40, 40),      "frame interval :  %.1f ms" % (frameEnd*1000 - frameStart*1000))
     if cv_mode and harris_mode:
