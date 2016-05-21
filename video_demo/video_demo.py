@@ -4,7 +4,7 @@ import time
 import cv2
 import sys
 
-from common import clock, draw_str, StatValue, image_clamp
+from common import clock, draw_str
 
 # load polymage shared libraries
 libharris = ctypes.cdll.LoadLibrary("./harris.so")
@@ -46,7 +46,7 @@ thresh = 0.001
 weight = 3
 
 levels = 4
-alpha = 1.0/(levels-1)
+alpha = 1.0 / (levels - 1)
 beta = 1.0
 
 libharris_naive.pool_init()
@@ -77,33 +77,33 @@ while(cap.isOpened()):
             gray = np.float32(gray) / 4.0
             res = cv2.cornerHarris(gray, 3, 3, 0.04)
         else:
-            res = np.empty((rows, cols), np.float32) 
+            res = np.empty((rows, cols), np.float32)
             if naive_mode:
-                harris_naive(ctypes.c_int(cols-2), \
-                             ctypes.c_int(rows-2), \
-                             ctypes.c_void_p(frame.ctypes.data), \
+                harris_naive(ctypes.c_int(cols - 2),
+                             ctypes.c_int(rows - 2),
+                             ctypes.c_void_p(frame.ctypes.data),
                              ctypes.c_void_p(res.ctypes.data))
             else:
-                harris(ctypes.c_int(cols-2), \
-                       ctypes.c_int(rows-2), \
-                       ctypes.c_void_p(frame.ctypes.data), \
+                harris(ctypes.c_int(cols - 2),
+                       ctypes.c_int(rows - 2),
+                       ctypes.c_void_p(frame.ctypes.data),
                        ctypes.c_void_p(res.ctypes.data))
 
     elif unsharp_mode:
-        res = np.empty((rows-4, cols-4, 3), np.float32)
+        res = np.empty((rows - 4, cols - 4, 3), np.float32)
         if naive_mode:
-            unsharp_naive(ctypes.c_int(cols-4), \
-                          ctypes.c_int(rows-4), \
-                          ctypes.c_float(thresh), \
-                          ctypes.c_float(weight), \
-                          ctypes.c_void_p(frame.ctypes.data), \
+            unsharp_naive(ctypes.c_int(cols - 4),
+                          ctypes.c_int(rows - 4),
+                          ctypes.c_float(thresh),
+                          ctypes.c_float(weight),
+                          ctypes.c_void_p(frame.ctypes.data),
                           ctypes.c_void_p(res.ctypes.data))
         else:
-            unsharp(ctypes.c_int(cols-4), \
-                    ctypes.c_int(rows-4), \
-                    ctypes.c_float(thresh), \
-                    ctypes.c_float(weight), \
-                    ctypes.c_void_p(frame.ctypes.data), \
+            unsharp(ctypes.c_int(cols - 4),
+                    ctypes.c_int(rows - 4),
+                    ctypes.c_float(thresh),
+                    ctypes.c_float(weight),
+                    ctypes.c_void_p(frame.ctypes.data),
                     ctypes.c_void_p(res.ctypes.data))
 
     elif laplacian_mode:
@@ -112,49 +112,52 @@ while(cap.isOpened()):
         res = np.empty((rows, cols, 3), np.uint8)
 
         if naive_mode:
-            laplacian_naive(ctypes.c_int(cols+total_pad), \
-                            ctypes.c_int(rows+total_pad), \
-                            ctypes.c_float(alpha), \
-                            ctypes.c_float(beta), \
-                            ctypes.c_void_p(frame.ctypes.data), \
+            laplacian_naive(ctypes.c_int(cols + total_pad),
+                            ctypes.c_int(rows + total_pad),
+                            ctypes.c_float(alpha),
+                            ctypes.c_float(beta),
+                            ctypes.c_void_p(frame.ctypes.data),
                             ctypes.c_void_p(res.ctypes.data))
         else:
-            laplacian(ctypes.c_int(cols+total_pad), \
-                      ctypes.c_int(rows+total_pad), \
-                      ctypes.c_float(alpha), \
-                      ctypes.c_float(beta), \
-                      ctypes.c_void_p(frame.ctypes.data), \
+            laplacian(ctypes.c_int(cols + total_pad),
+                      ctypes.c_int(rows + total_pad),
+                      ctypes.c_float(alpha),
+                      ctypes.c_float(beta),
+                      ctypes.c_void_p(frame.ctypes.data),
                       ctypes.c_void_p(res.ctypes.data))
 
     elif bilateral_mode:
         res = np.empty((rows, cols), np.float32)
         if naive_mode:
-            bilateral_naive(ctypes.c_int(cols+56), \
-                            ctypes.c_int(rows+56), \
-                            ctypes.c_void_p(frame.ctypes.data), \
+            bilateral_naive(ctypes.c_int(cols + 56),
+                            ctypes.c_int(rows + 56),
+                            ctypes.c_void_p(frame.ctypes.data),
                             ctypes.c_void_p(res.ctypes.data))
         else:
-            bilateral(ctypes.c_int(cols+56), \
-                      ctypes.c_int(rows+56), \
-                      ctypes.c_void_p(frame.ctypes.data), \
+            bilateral(ctypes.c_int(cols + 56),
+                      ctypes.c_int(rows + 56),
+                      ctypes.c_void_p(frame.ctypes.data),
                       ctypes.c_void_p(res.ctypes.data))
     else:
         res = frame
 
     frameEnd = clock()
 
-    cv2.rectangle(res, (0, 0), (750, 150), (255, 255, 255), thickness=CV_THICKNESS_FILLED)
+    cv2.rectangle(res, (0, 0), (750, 150), (255, 255, 255),
+                  thickness=CV_THICKNESS_FILLED)
 
-    draw_str(res, (40, 40),      "frame interval :  %.1f ms" % (frameEnd*1000 - frameStart*1000))
+    draw_str(res, (40, 40),
+             "frame interval :  %.1f ms" %
+             (frameEnd * 1000 - frameStart * 1000))
     if cv_mode and harris_mode:
-        draw_str(res, (40, 80),  "Pipeline        :  " + str("OpenCV"))
+        draw_str(res, (40, 80), "Pipeline        :  " + str("OpenCV"))
     elif bilateral_mode or harris_mode or unsharp_mode or laplacian_mode:
         if naive_mode:
-            draw_str(res, (40, 80),  "Pipeline        :  " + str("PolyMage (Naive)"))
+            draw_str(res, (40, 80), "Pipeline        :  PolyMage (Naive)")
         else:
-            draw_str(res, (40, 80),  "Pipeline        :  " + str("PolyMage (Opt)"))
+            draw_str(res, (40, 80), "Pipeline        :  PolyMage (Opt)")
     else:
-        draw_str(res, (40, 80),  "Pipeline        :  ")
+        draw_str(res, (40, 80), "Pipeline        :  ")
 
     if harris_mode:
         draw_str(res, (40, 120), "Benchmark    :  " + str("Harris Corner"))
